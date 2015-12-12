@@ -11,7 +11,11 @@ module Stockfighter
     end
 
     def venue_heartbeat(venue)
-      self.class.get("/venue/#{venue}/heartbeat").parsed_response
+      self.class.get("/venues/#{venue}/heartbeat").parsed_response
+    end
+
+    def venue_stocks(venue)
+      self.class.get("/venues/#{venue}/stocks").parsed_response
     end
   end
 end

@@ -14,8 +14,34 @@ describe Stockfighter::Client do
     it 'should get the status of the venue' do
       response = double()
       allow(response).to receive(:parsed_response).and_return({'ok' => true, 'venue' => 'TESTEX'})
-      expect(Stockfighter::Client).to receive(:get).with('/venue/TESTEX/heartbeat').and_return(response)
+      expect(Stockfighter::Client).to receive(:get).with('/venues/TESTEX/heartbeat').and_return(response)
       expect(subject.venue_heartbeat('TESTEX')).to eq({'ok' => true, 'venue' => 'TESTEX'})
+    end
+  end
+
+  describe '#venue_stocks' do
+    it 'should get the stocks available on the venue' do
+      example_data = {
+        "ok" =>  true,
+        "symbols" => [
+          {
+            "name" => "Foreign Owned Occulmancy",
+           "symbol" => "FOO"
+          },
+          {
+            "name" => "Best American Ricecookers",
+            "symbol" => "BAR"
+          },
+          {
+            "name" => "Badly Aliased Zebras",
+            "symbol" => "BAZ"
+          }
+        ]
+      }
+      response = double()
+      allow(response).to receive(:parsed_response).and_return(example_data)
+      expect(Stockfighter::Client).to receive(:get).with('/venues/TESTEX/stocks').and_return(response)
+      expect(subject.venue_stocks('TESTEX')).to eq(example_data)
     end
   end
 end
