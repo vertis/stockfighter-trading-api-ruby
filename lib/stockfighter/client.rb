@@ -18,27 +18,27 @@ module Stockfighter
       self.class.get("/venues/#{venue}/heartbeat").parsed_response
     end
 
-    def venue_stocks(venue)
+    def stocks(venue)
       self.class.get("/venues/#{venue}/stocks").parsed_response
     end
 
-    def venue_stock_orderbook(venue, stock)
+    def orderbook(venue, stock)
       self.class.get("/venues/#{venue}/stocks/#{stock}").parsed_response
     end
 
-    def venue_stock_quote(venue, stock)
+    def quote(venue, stock)
       self.class.get("/venues/#{venue}/stocks/#{stock}/quote").parsed_response
     end
 
-    def venue_stock_new_order(venue, stock, order_details)
+    def new_order(venue, stock, order_details)
       self.class.post("/venues/#{venue}/stocks/#{stock}", :body => order_details).parsed_response
     end
 
-    def venue_stock_order_status(venue, stock, order_id)
+    def order_status(venue, stock, order_id)
       self.class.get("/venues/#{venue}/stocks/#{stock}/orders/#{order_id}").parsed_response
     end
 
-    def venue_stock_cancel_order(venue, stock, order_id)
+    def cancel_order(venue, stock, order_id)
       self.class.delete("/venues/#{venue}/stocks/#{stock}/orders/#{order_id}").parsed_response
     end
   end

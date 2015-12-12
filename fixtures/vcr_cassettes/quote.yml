@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.stockfighter.io/ob/api/venues/TESTEX/stocks
+    uri: https://api.stockfighter.io/ob/api/venues/TESTEX/stocks/FOOBAR/quote
     body:
       encoding: US-ASCII
       string: ''
@@ -21,11 +21,11 @@ http_interactions:
       Server:
       - nginx/1.8.0
       Date:
-      - Sat, 12 Dec 2015 08:15:12 GMT
+      - Sat, 12 Dec 2015 12:06:53 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '143'
+      - '275'
       Connection:
       - keep-alive
       Strict-Transport-Security:
@@ -35,13 +35,18 @@ http_interactions:
       string: |-
         {
           "ok": true,
-          "symbols": [
-            {
-              "name": "Foreign Owned Occluded Bridge Architecture Resources",
-              "symbol": "FOOBAR"
-            }
-          ]
+          "symbol": "FOOBAR",
+          "venue": "TESTEX",
+          "bid": 5142,
+          "bidSize": 324,
+          "askSize": 0,
+          "bidDepth": 324,
+          "askDepth": 0,
+          "last": 5142,
+          "lastSize": 3,
+          "lastTrade": "2015-12-11T10:09:34.118694445Z",
+          "quoteTime": "2015-12-11T10:09:41.512572098Z"
         }
     http_version: 
-  recorded_at: Sat, 12 Dec 2015 08:15:10 GMT
+  recorded_at: Sat, 12 Dec 2015 12:06:50 GMT
 recorded_with: VCR 3.0.0

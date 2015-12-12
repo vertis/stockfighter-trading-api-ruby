@@ -17,38 +17,38 @@ describe Stockfighter::Client do
     end
   end
 
-  describe '#venue_stocks' do
+  describe '#stocks' do
     it 'should get the stocks available on the venue' do
-      VCR.use_cassette("venue_stocks") do
-        expect(subject.venue_stocks('TESTEX')).to eq({ 'ok' => true, 'symbols' => [{'name'=>'Foreign Owned Occluded Bridge Architecture Resources', 'symbol'=>'FOOBAR'}] })
+      VCR.use_cassette("stocks") do
+        expect(subject.stocks('TESTEX')).to eq({ 'ok' => true, 'symbols' => [{'name'=>'Foreign Owned Occluded Bridge Architecture Resources', 'symbol'=>'FOOBAR'}] })
       end
     end
   end
 
-  describe '#venue_stock_orderbook' do
+  describe '#orderbook' do
     it 'should get the orderbook for the given stock on the given venue' do
-      VCR.use_cassette("venue_stock_orderbook") do
-        res = subject.venue_stock_orderbook('TESTEX', 'FOOBAR')
+      VCR.use_cassette("orderbook") do
+        res = subject.orderbook('TESTEX', 'FOOBAR')
         expect(res['ok']).to eq(true)
         expect(res.keys).to eq(["ok", "venue", "symbol", "ts", "bids", "asks"])
       end
     end
   end
 
-  describe '#venue_stock_quote' do
+  describe '#quote' do
     it 'should get the quote for the given stock on the given venue' do
-      VCR.use_cassette("venue_stock_quote") do
-        res = subject.venue_stock_quote('TESTEX', 'FOOBAR')
+      VCR.use_cassette("quote") do
+        res = subject.quote('TESTEX', 'FOOBAR')
         expect(res['ok']).to eq(true)
         expect(res.keys).to eq(["ok", "symbol", "venue", "bid", "bidSize", "askSize", "bidDepth", "askDepth", "last", "lastSize", "lastTrade", "quoteTime"])
       end
     end
   end
 
-  describe '#venue_stock_new_order' do
+  describe '#new_order' do
     context 'without authorization header' do
       it 'should fail to create an order' do
-        VCR.use_cassette("venue_stock_new_order_without_auth") do
+        VCR.use_cassette("new_order_without_auth") do
           order_details = {
             "account" => "EXB123456",
             "venue" => "TESTEX",
@@ -57,7 +57,7 @@ describe Stockfighter::Client do
             "direction" => "buy",
             "orderType" => "market"
           }
-          res = subject.venue_stock_new_order('TESTEX', 'FOOBAR', order_details)
+          res = subject.new_order('TESTEX', 'FOOBAR', order_details)
           expect(res).to eq({"ok"=>false, "error"=>"Deployment error: need X-Starfighter-Authorization on internal requests. Also, set SF_SYSTEM_AUTH_TOKEN env variable."})
         end
       end
@@ -66,7 +66,7 @@ describe Stockfighter::Client do
     context 'with authorization header' do
       subject { Stockfighter::Client.new({ 'headers' => { 'X-Starfighter-Authorization' => 'fakeKey' } })}
       it 'should create an order' do
-        VCR.use_cassette("venue_stock_new_order_with_auth") do
+        VCR.use_cassette("new_order_with_auth") do
           order_details = {
             "account" => "EXB123456",
             "venue" => "TESTEX",
@@ -76,7 +76,7 @@ describe Stockfighter::Client do
             "orderType" => "market"
           }
           pending "We don't have an API key to test with yet"
-          res = subject.venue_stock_new_order('TESTEX', 'FOOBAR', order_details)
+          res = subject.new_order('TESTEX', 'FOOBAR', order_details)
           expect(res).to eq({ "ok" => true })
         end
       end
@@ -87,9 +87,9 @@ describe Stockfighter::Client do
     context 'with authorization header' do
       subject { Stockfighter::Client.new({ 'headers' => { 'X-Starfighter-Authorization' => 'fakeKey' } })}
       it 'should return the order status' do
-        VCR.use_cassette("venue_stock_order_status_with_auth") do
+        VCR.use_cassette("order_status_with_auth") do
           pending "We don't have an API key to test with yet"
-          res = subject.venue_stock_order_status('TESTEX', 'FOOBAR', 12)
+          res = subject.order_status('TESTEX', 'FOOBAR', 12)
           expect(res).to eq(true)
           expect(res.keys).to eq([])
         end
@@ -97,13 +97,13 @@ describe Stockfighter::Client do
     end
   end
 
-  describe '#venue_stock_cancel_order' do
+  describe '#cancel_order' do
     context 'with authorization header' do
       subject { Stockfighter::Client.new({ 'headers' => { 'X-Starfighter-Authorization' => 'fakeKey' } })}
       it 'should cancel the order' do
-        VCR.use_cassette("venue_stock_cancel_order_with_auth") do
+        VCR.use_cassette("cancel_order_with_auth") do
           pending "We don't have an API key to test with yet"
-          res = subject.venue_stock_cancel_order('TESTEX', 'FOOBAR', 12)
+          res = subject.cancel_order('TESTEX', 'FOOBAR', 12)
           expect(res).to eq(true)
           expect(res.keys).to eq([])
         end

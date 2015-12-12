@@ -17,7 +17,7 @@ http_interactions:
       Server:
       - nginx/1.8.0
       Date:
-      - Sat, 12 Dec 2015 12:03:16 GMT
+      - Sat, 12 Dec 2015 12:06:55 GMT
       Content-Type:
       - text/plain; charset=utf-8
       Content-Length:
@@ -29,5 +29,5 @@ http_interactions:
       string: |
         {"ok":false,"error":"Auth/auth failed: %!(EXTRA string=Couldn't find that apiKey, service reports: No fighter with that API key.)"}
     http_version: 
-  recorded_at: Sat, 12 Dec 2015 12:03:14 GMT
+  recorded_at: Sat, 12 Dec 2015 12:06:53 GMT
 recorded_with: VCR 3.0.0
