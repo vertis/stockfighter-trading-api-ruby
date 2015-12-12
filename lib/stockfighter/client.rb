@@ -34,6 +34,10 @@ module Stockfighter
       self.class.post("/venues/#{venue}/stocks/#{stock}", :body => order_details).parsed_response
     end
 
+    def venue_stock_order_status(venue, stock, order_id)
+      self.class.get("/venues/#{venue}/stocks/#{stock}/orders/#{order_id}").parsed_response
+    end
+
     def venue_stock_cancel_order(venue, stock, order_id)
       self.class.delete("/venues/#{venue}/stocks/#{stock}/orders/#{order_id}").parsed_response
     end
