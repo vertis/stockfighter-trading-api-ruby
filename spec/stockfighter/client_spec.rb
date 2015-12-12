@@ -82,4 +82,18 @@ describe Stockfighter::Client do
       end
     end
   end
+
+  describe '#venue_stock_cancel_order' do
+    context 'with authorization header' do
+      subject { Stockfighter::Client.new({ 'headers' => { 'X-Starfighter-Authorization' => 'fakeKey' } })}
+      it 'should cancel the order' do
+        VCR.use_cassette("venue_stock_cancel_order_with_auth") do
+          pending "We don't have an API key to test with yet"
+          res = subject.venue_stock_cancel_order('TESTEX', 'FOOBAR', 12)
+          expect(res).to eq(true)
+          expect(res.keys).to eq([])
+        end
+      end
+    end
+  end
 end
