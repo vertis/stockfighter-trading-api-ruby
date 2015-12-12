@@ -83,13 +83,41 @@ describe Stockfighter::Client do
     end
   end
 
-  describe '#venue_stock_order_status' do
+  describe '#order_status' do
     context 'with authorization header' do
       subject { Stockfighter::Client.new({ 'headers' => { 'X-Starfighter-Authorization' => 'fakeKey' } })}
       it 'should return the order status' do
         VCR.use_cassette("order_status_with_auth") do
           pending "We don't have an API key to test with yet"
           res = subject.order_status('TESTEX', 'FOOBAR', 12)
+          expect(res).to eq(true)
+          expect(res.keys).to eq([])
+        end
+      end
+    end
+  end
+
+  describe '#orders_status' do
+    context 'with authorization header' do
+      subject { Stockfighter::Client.new({ 'headers' => { 'X-Starfighter-Authorization' => 'fakeKey' } })}
+      it 'should return the status of all the orders' do
+        VCR.use_cassette("orders_status_with_auth") do
+          pending "We don't have an API key to test with yet"
+          res = subject.orders_status('TESTEX', 'ACCOUNTID')
+          expect(res).to eq(true)
+          expect(res.keys).to eq([])
+        end
+      end
+    end
+  end
+
+  describe '#orders_stock_status' do
+    context 'with authorization header' do
+      subject { Stockfighter::Client.new({ 'headers' => { 'X-Starfighter-Authorization' => 'fakeKey' } })}
+      it 'should return the status of all the orders' do
+        VCR.use_cassette("orders_stock_status_with_auth") do
+          pending "We don't have an API key to test with yet"
+          res = subject.orders_stock_status('TESTEX', 'ACCOUNTID', 'FOOBAR')
           expect(res).to eq(true)
           expect(res.keys).to eq([])
         end

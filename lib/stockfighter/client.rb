@@ -38,6 +38,14 @@ module Stockfighter
       self.class.get("/venues/#{venue}/stocks/#{stock}/orders/#{order_id}").parsed_response
     end
 
+    def orders_status(venue, account_id)
+      self.class.get("/venues/#{venue}/accounts/#{account_id}/orders").parsed_response
+    end
+
+    def orders_stock_status(venue, account_id, stock)
+      self.class.get("/venues/#{venue}/accounts/#{account_id}/stocks/#{stock}/orders").parsed_response
+    end
+
     def cancel_order(venue, stock, order_id)
       self.class.delete("/venues/#{venue}/stocks/#{stock}/orders/#{order_id}").parsed_response
     end

@@ -1,0 +1,33 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.stockfighter.io/ob/api/venues/TESTEX/accounts/ACCOUNTID/stocks/FOOBAR/orders
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Starfighter-Authorization:
+      - fakeKey
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Server:
+      - nginx/1.8.0
+      Date:
+      - Sat, 12 Dec 2015 12:13:19 GMT
+      Content-Type:
+      - text/plain; charset=utf-8
+      Content-Length:
+      - '132'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: |
+        {"ok":false,"error":"Auth/auth failed: %!(EXTRA string=Couldn't find that apiKey, service reports: No fighter with that API key.)"}
+    http_version: 
+  recorded_at: Sat, 12 Dec 2015 12:13:17 GMT
+recorded_with: VCR 3.0.0
