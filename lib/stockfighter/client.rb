@@ -6,6 +6,10 @@ module Stockfighter
 
     base_uri "https://api.stockfighter.io/ob/api"
 
+    def initialize(options={})
+      self.class.headers options['headers'] if options['headers']
+    end
+
     def heartbeat
       self.class.get('/heartbeat').parsed_response
     end

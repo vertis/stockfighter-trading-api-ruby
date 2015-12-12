@@ -36,18 +36,39 @@ describe Stockfighter::Client do
   end
 
   describe '#venue_stock_new_order' do
-    it 'should fail to create an order when we have no authorization header' do
-      VCR.use_cassette("venue_stock_new_order") do
-        order_details = {
-          "account" => "EXB123456",
-          "venue" => "TESTEX",
-          "stock" => "FOOBAR",
-          "qty" => 100,
-          "direction" => "buy",
-          "orderType" => "market"
-        }
-        res = subject.venue_stock_new_order('TESTEX', 'FOOBAR', order_details)
-        expect(res).to eq({"ok"=>false, "error"=>"Deployment error: need X-Starfighter-Authorization on internal requests. Also, set SF_SYSTEM_AUTH_TOKEN env variable."})
+    context 'without authorization header' do
+      it 'should fail to create an order' do
+        VCR.use_cassette("venue_stock_new_order_without_auth") do
+          order_details = {
+            "account" => "EXB123456",
+            "venue" => "TESTEX",
+            "stock" => "FOOBAR",
+            "qty" => 100,
+            "direction" => "buy",
+            "orderType" => "market"
+          }
+          res = subject.venue_stock_new_order('TESTEX', 'FOOBAR', order_details)
+          expect(res).to eq({"ok"=>false, "error"=>"Deployment error: need X-Starfighter-Authorization on internal requests. Also, set SF_SYSTEM_AUTH_TOKEN env variable."})
+        end
+      end
+    end
+
+    context 'with authorization header' do
+      subject { Stockfighter::Client.new({ 'headers' => { 'X-Starfighter-Authorization' => 'fakeKey' } })}
+      it 'should create an order' do
+        VCR.use_cassette("venue_stock_new_order_with_auth") do
+          order_details = {
+            "account" => "EXB123456",
+            "venue" => "TESTEX",
+            "stock" => "FOOBAR",
+            "qty" => 100,
+            "direction" => "buy",
+            "orderType" => "market"
+          }
+          pending "We don't have an API key to test with yet"
+          res = subject.venue_stock_new_order('TESTEX', 'FOOBAR', order_details)
+          expect(res).to eq({ "ok" => true })
+        end
       end
     end
   end
