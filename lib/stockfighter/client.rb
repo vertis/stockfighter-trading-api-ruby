@@ -71,5 +71,25 @@ module Stockfighter
         # end
       end
     end
+
+    def tickertape_stock(account_id, venue_id, stock, &callback)
+      EM.run do
+        ws = WebSocket::EventMachine::Client.connect(:uri => "wss://api.stockfighter.io/ob/api/ws/#{account_id}/venues/#{venue_id}/tickertape/stocks/#{stock}")
+
+        ws.onmessage do |msg, type|
+          puts "Received message: #{msg}"
+          callback.call JSON.parse(msg)
+        end
+        ws.onclose do |code, reason|
+          puts "Disconnected with status code: #{code}"
+          #callback.call "{code} #{reason}"
+          EM.stop
+        end
+
+        # EventMachine.next_tick do
+        #   ws.send "Hello Server!"
+        # end
+      end
+    end
   end
 end
