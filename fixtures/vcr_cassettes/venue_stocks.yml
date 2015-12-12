@@ -1,0 +1,47 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.stockfighter.io/ob/api/venues/TESTEX/stocks
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.8.0
+      Date:
+      - Sat, 12 Dec 2015 08:15:12 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '143'
+      Connection:
+      - keep-alive
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubdomains
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "ok": true,
+          "symbols": [
+            {
+              "name": "Foreign Owned Occluded Bridge Architecture Resources",
+              "symbol": "FOOBAR"
+            }
+          ]
+        }
+    http_version: 
+  recorded_at: Sat, 12 Dec 2015 08:15:10 GMT
+recorded_with: VCR 3.0.0
