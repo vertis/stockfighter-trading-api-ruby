@@ -34,4 +34,21 @@ describe Stockfighter::Client do
       end
     end
   end
+
+  describe '#venue_stock_new_order' do
+    it 'should fail to create an order when we have no authorization header' do
+      VCR.use_cassette("venue_stock_new_order") do
+        order_details = {
+          "account" => "EXB123456",
+          "venue" => "TESTEX",
+          "stock" => "FOOBAR",
+          "qty" => 100,
+          "direction" => "buy",
+          "orderType" => "market"
+        }
+        res = subject.venue_stock_new_order('TESTEX', 'FOOBAR', order_details)
+        expect(res).to eq({"ok"=>false, "error"=>"Deployment error: need X-Starfighter-Authorization on internal requests. Also, set SF_SYSTEM_AUTH_TOKEN env variable."})
+      end
+    end
+  end
 end
