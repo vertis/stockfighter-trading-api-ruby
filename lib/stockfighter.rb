@@ -3,6 +3,11 @@ require "stockfighter/client"
 
 module Stockfighter
   def self.heartbeat
-    {'ok' => true, 'error' => ''}
+    client.heartbeat
+  end
+
+  private
+  def self.client
+    @client ||= Stockfighter::Client.new
   end
 end
