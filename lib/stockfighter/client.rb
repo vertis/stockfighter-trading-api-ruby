@@ -17,5 +17,9 @@ module Stockfighter
     def venue_stocks(venue)
       self.class.get("/venues/#{venue}/stocks").parsed_response
     end
+
+    def venue_stock_orderbook(venue, stock)
+      self.class.get("/venues/#{venue}/stocks/#{stock}").parsed_response
+    end
   end
 end

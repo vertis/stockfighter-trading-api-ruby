@@ -1,0 +1,272 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.stockfighter.io/ob/api/venues/TESTEX/stocks/FOOBAR
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.8.0
+      Date:
+      - Sat, 12 Dec 2015 08:54:47 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubdomains
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "ok": true,
+          "venue": "TESTEX",
+          "symbol": "FOOBAR",
+          "ts": "2015-12-12T08:54:49.365817206Z",
+          "bids": [
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 10,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 10,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 10,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 4,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 10,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 10,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 4,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            },
+            {
+              "price": 5142,
+              "qty": 7,
+              "isBuy": true
+            }
+          ],
+          "asks": null
+        }
+    http_version: 
+  recorded_at: Sat, 12 Dec 2015 08:54:44 GMT
+recorded_with: VCR 3.0.0

@@ -24,4 +24,14 @@ describe Stockfighter::Client do
       end
     end
   end
+
+  describe '#venue_stock_orderbook' do
+    it 'should get the orderbook for the given stock on the given venue' do
+      VCR.use_cassette("venue_stock_orderbook") do
+        res = subject.venue_stock_orderbook('TESTEX', 'FOOBAR')
+        expect(res['ok']).to eq(true)
+        expect(res.keys).to eq(["ok", "venue", "symbol", "ts", "bids", "asks"])
+      end
+    end
+  end
 end
