@@ -158,4 +158,24 @@ describe Stockfighter::Client do
       end
     end
   end
+
+  # FIXME VCR doesn't appear to be recording/replaying
+  describe '#executions' do
+    it 'should receive a failure message if the venue can\'t be found' do
+      VCR.use_cassette("executions_no_venue") do
+        assert_and_exit = -> (msg) { expect(msg).to(eq({"ok"=>false, "error"=>"Could not find venue in path [/ob/api/ws/TAH97715708/venues/FAKE/executions], expecting /ws/$TRADING_ACCOUNT/venues/$VENUE/.... Check the websocket URL."})); EM.stop }
+        subject.executions("TAH97715708", "FAKE", &assert_and_exit)
+      end
+    end
+  end
+
+  # FIXME VCR doesn't appear to be recording/replaying
+  describe '#executions_stock' do
+    it 'should receive a failure message if the venue can\'t be found' do
+      VCR.use_cassette("executions_stock_no_venue") do
+        assert_and_exit = -> (msg) { expect(msg).to(eq({"ok"=>false, "error"=>"Could not find venue [FAKE]. Check the websocket URL."})); EM.stop }
+        subject.executions_stock("TAH97715708", "FAKE", "FOOBAR", &assert_and_exit)
+      end
+    end
+  end
 end

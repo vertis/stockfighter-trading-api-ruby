@@ -57,18 +57,14 @@ module Stockfighter
         ws = WebSocket::EventMachine::Client.connect(:uri => "wss://api.stockfighter.io/ob/api/ws/#{account_id}/venues/#{venue_id}/tickertape")
 
         ws.onmessage do |msg, type|
-          puts "Received message: #{msg}"
+          #puts "Received message: #{msg}"
           callback.call JSON.parse(msg)
         end
         ws.onclose do |code, reason|
-          puts "Disconnected with status code: #{code}"
+          #puts "Disconnected with status code: #{code}"
           #callback.call "{code} #{reason}"
           EM.stop
         end
-
-        # EventMachine.next_tick do
-        #   ws.send "Hello Server!"
-        # end
       end
     end
 
@@ -77,19 +73,45 @@ module Stockfighter
         ws = WebSocket::EventMachine::Client.connect(:uri => "wss://api.stockfighter.io/ob/api/ws/#{account_id}/venues/#{venue_id}/tickertape/stocks/#{stock}")
 
         ws.onmessage do |msg, type|
-          puts "Received message: #{msg}"
+          #puts "Received message: #{msg}"
           callback.call JSON.parse(msg)
         end
         ws.onclose do |code, reason|
-          puts "Disconnected with status code: #{code}"
-          #callback.call "{code} #{reason}"
+          #puts "Disconnected with status code: #{code}"
           EM.stop
         end
-
-        # EventMachine.next_tick do
-        #   ws.send "Hello Server!"
-        # end
       end
     end
+
+    def executions(account_id, venue_id, &callback)
+      EM.run do
+        ws = WebSocket::EventMachine::Client.connect(:uri => "wss://api.stockfighter.io/ob/api/ws/#{account_id}/venues/#{venue_id}/executions")
+
+        ws.onmessage do |msg, type|
+          #puts "Received message: #{msg}"
+          callback.call JSON.parse(msg)
+        end
+        ws.onclose do |code, reason|
+          #puts "Disconnected with status code: #{code}"
+          EM.stop
+        end
+      end
+    end
+
+    def executions_stock(account_id, venue_id, stock, &callback)
+      EM.run do
+        ws = WebSocket::EventMachine::Client.connect(:uri => "wss://api.stockfighter.io/ob/api/ws/#{account_id}/venues/#{venue_id}/executions/stocks/#{stock}")
+
+        ws.onmessage do |msg, type|
+          #puts "Received message: #{msg}"
+          callback.call JSON.parse(msg)
+        end
+        ws.onclose do |code, reason|
+          #puts "Disconnected with status code: #{code}"
+          EM.stop
+        end
+      end
+    end
+
   end
 end
