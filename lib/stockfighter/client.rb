@@ -9,5 +9,9 @@ module Stockfighter
     def heartbeat
       self.class.get('/heartbeat').parsed_response
     end
+
+    def venue_heartbeat(venue)
+      self.class.get("/venue/#{venue}/heartbeat").parsed_response
+    end
   end
 end
