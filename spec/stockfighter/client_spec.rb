@@ -35,6 +35,16 @@ describe Stockfighter::Client do
     end
   end
 
+  describe '#venue_stock_quote' do
+    it 'should get the quote for the given stock on the given venue' do
+      VCR.use_cassette("venue_stock_quote") do
+        res = subject.venue_stock_quote('TESTEX', 'FOOBAR')
+        expect(res['ok']).to eq(true)
+        expect(res.keys).to eq(["ok", "symbol", "venue", "bid", "bidSize", "askSize", "bidDepth", "askDepth", "last", "lastSize", "lastTrade", "quoteTime"])
+      end
+    end
+  end
+
   describe '#venue_stock_new_order' do
     context 'without authorization header' do
       it 'should fail to create an order' do

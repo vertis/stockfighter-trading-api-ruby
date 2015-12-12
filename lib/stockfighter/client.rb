@@ -26,6 +26,10 @@ module Stockfighter
       self.class.get("/venues/#{venue}/stocks/#{stock}").parsed_response
     end
 
+    def venue_stock_quote(venue, stock)
+      self.class.get("/venues/#{venue}/stocks/#{stock}/quote").parsed_response
+    end
+
     def venue_stock_new_order(venue, stock, order_details)
       self.class.post("/venues/#{venue}/stocks/#{stock}", :body => order_details).parsed_response
     end
