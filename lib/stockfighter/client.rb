@@ -1,4 +1,6 @@
 require 'httparty'
+require 'websocket-eventmachine-client'
+require 'json'
 
 module Stockfighter
   class Client
@@ -48,6 +50,26 @@ module Stockfighter
 
     def cancel_order(venue, stock, order_id)
       self.class.delete("/venues/#{venue}/stocks/#{stock}/orders/#{order_id}").parsed_response
+    end
+
+    def tickertape(account_id, venue_id, &callback)
+      EM.run do
+        ws = WebSocket::EventMachine::Client.connect(:uri => "wss://api.stockfighter.io/ob/api/ws/#{account_id}/venues/#{venue_id}/tickertape")
+
+        ws.onmessage do |msg, type|
+          puts "Received message: #{msg}"
+          callback.call JSON.parse(msg)
+        end
+        ws.onclose do |code, reason|
+          puts "Disconnected with status code: #{code}"
+          #callback.call "{code} #{reason}"
+          EM.stop
+        end
+
+        # EventMachine.next_tick do
+        #   ws.send "Hello Server!"
+        # end
+      end
     end
   end
 end
