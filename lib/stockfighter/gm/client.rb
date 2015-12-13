@@ -24,6 +24,10 @@ module Stockfighter
       def resume_level(instance_id)
         self.class.post("/instances/#{instance_id}/resume").parsed_response
       end
+
+      def level_status(instance_id)
+        self.class.get("/instances/#{instance_id}").parsed_response
+      end
     end
   end
 end

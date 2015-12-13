@@ -1,0 +1,34 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.stockfighter.io/gm/instances/207
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Starfighter-Authorization:
+      - fakeKey
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.8.0
+      Date:
+      - Sun, 13 Dec 2015 09:38:18 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '68'
+      Connection:
+      - keep-alive
+      X-Upstream-Debugging:
+      - 172.31.134.156:8181
+    body:
+      encoding: UTF-8
+      string: '{"ok":false,"error":"Attempt to get status for the level timed out"}'
+    http_version:
+  recorded_at: Sun, 13 Dec 2015 09:38:15 GMT
+recorded_with: VCR 3.0.0

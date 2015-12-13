@@ -56,4 +56,19 @@ describe Stockfighter::GM::Client do
       end
     end
   end
+
+  describe '#level_status' do
+    subject { Stockfighter::GM::Client.new({ 'headers' => { 'X-Starfighter-Authorization' => ENV['STARFIGHTER_AUTH_KEY'] } })}
+    it 'should get the level status' do
+      pending "Stockfighter is having issues right now"
+      VCR.use_cassette("start_level") do
+        @instance_id = subject.start_level('first_steps')["instanceId"]
+      end
+      VCR.use_cassette("level_status") do
+        res = subject.level_status(@instance_id)
+        expect(res['ok']).to eq(true)
+        expect(res.keys).to eq(["ok", "instanceId", "account", "instructions", "tickers", "venues", "secondsPerTradingDay"])
+      end
+    end
+  end
 end
