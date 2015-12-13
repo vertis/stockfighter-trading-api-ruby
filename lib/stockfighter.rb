@@ -1,5 +1,6 @@
 require "stockfighter/version"
 require "stockfighter/client"
+require "stockfighter/gm/client"
 
 module Stockfighter
   def self.heartbeat
