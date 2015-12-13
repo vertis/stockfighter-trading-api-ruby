@@ -2,7 +2,7 @@ module Stockfighter
   module GM
     class Client
       include HTTParty
-      
+
       base_uri "https://api.stockfighter.io/gm"
 
       def initialize(options={})
@@ -11,6 +11,10 @@ module Stockfighter
 
       def start_level(name)
         self.class.post("/levels/#{name}").parsed_response
+      end
+
+      def restart_level(instance_id)
+        self.class.post("/instances/#{instance_id}/restart").parsed_response
       end
     end
   end

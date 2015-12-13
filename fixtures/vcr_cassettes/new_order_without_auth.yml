@@ -2,10 +2,10 @@
 http_interactions:
 - request:
     method: post
-    uri: https://api.stockfighter.io/ob/api/venues/TESTEX/stocks/FOOBAR
+    uri: https://api.stockfighter.io/ob/api/venues/TESTEX/stocks/FOOBAR/orders
     body:
       encoding: UTF-8
-      string: account=EXB123456&venue=TESTEX&stock=FOOBAR&qty=100&direction=buy&orderType=market
+      string: '{"account":"EXB123456","venue":"TESTEX","stock":"FOOBAR","qty":100,"direction":"buy","orderType":"market"}'
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -15,25 +15,23 @@ http_interactions:
       - Ruby
   response:
     status:
-      code: 200
-      message: OK
+      code: 401
+      message: Unauthorized
     headers:
       Server:
       - nginx/1.8.0
       Date:
-      - Sun, 13 Dec 2015 06:39:11 GMT
+      - Sun, 13 Dec 2015 08:59:55 GMT
       Content-Type:
-      - application/json
+      - text/plain; charset=utf-8
       Content-Length:
-      - '140'
+      - '125'
       Connection:
       - keep-alive
-      Strict-Transport-Security:
-      - max-age=31536000; includeSubdomains
     body:
       encoding: UTF-8
-      string: '{"ok":false,"error":"Deployment error: need X-Starfighter-Authorization
-        on internal requests. Also, set SF_SYSTEM_AUTH_TOKEN env variable."}'
+      string: |
+        {"ok":false,"error":"Auth/auth failed: %!(EXTRA string=Need to specify an API key (looks like a long hexidecimal string.))"}
     http_version: 
-  recorded_at: Sun, 13 Dec 2015 06:39:08 GMT
+  recorded_at: Sun, 13 Dec 2015 08:59:52 GMT
 recorded_with: VCR 3.0.0

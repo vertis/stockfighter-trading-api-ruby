@@ -58,7 +58,7 @@ describe Stockfighter::Client do
             "orderType" => "market"
           }
           res = subject.new_order('TESTEX', 'FOOBAR', order_details)
-          expect(res).to eq({"ok"=>false, "error"=>"Deployment error: need X-Starfighter-Authorization on internal requests. Also, set SF_SYSTEM_AUTH_TOKEN env variable."})
+          expect(res).to eq({"ok"=>false, "error"=>"Auth/auth failed: %!(EXTRA string=Need to specify an API key (looks like a long hexidecimal string.))"})
         end
       end
     end
