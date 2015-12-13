@@ -11,23 +11,23 @@ http_interactions:
       - fakeKey
   response:
     status:
-      code: 401
-      message: Unauthorized
+      code: 404
+      message: Not Found
     headers:
       Server:
       - nginx/1.8.0
       Date:
-      - Sat, 12 Dec 2015 12:06:56 GMT
+      - Sun, 13 Dec 2015 06:39:17 GMT
       Content-Type:
       - text/plain; charset=utf-8
       Content-Length:
-      - '132'
+      - '81'
       Connection:
       - keep-alive
     body:
       encoding: UTF-8
       string: |
-        {"ok":false,"error":"Auth/auth failed: %!(EXTRA string=Couldn't find that apiKey, service reports: No fighter with that API key.)"}
-    http_version: 
-  recorded_at: Sat, 12 Dec 2015 12:06:54 GMT
+        {"ok":false,"error":"order 12 not found (highest available on this venue is 0)"}
+    http_version:
+  recorded_at: Sun, 13 Dec 2015 06:39:14 GMT
 recorded_with: VCR 3.0.0

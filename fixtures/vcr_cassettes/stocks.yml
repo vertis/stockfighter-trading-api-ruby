@@ -21,7 +21,7 @@ http_interactions:
       Server:
       - nginx/1.8.0
       Date:
-      - Sat, 12 Dec 2015 12:06:51 GMT
+      - Sun, 13 Dec 2015 06:39:07 GMT
       Content-Type:
       - application/json
       Content-Length:
@@ -43,5 +43,5 @@ http_interactions:
           ]
         }
     http_version: 
-  recorded_at: Sat, 12 Dec 2015 12:06:48 GMT
+  recorded_at: Sun, 13 Dec 2015 06:39:04 GMT
 recorded_with: VCR 3.0.0

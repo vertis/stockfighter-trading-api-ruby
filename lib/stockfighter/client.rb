@@ -7,6 +7,7 @@ module Stockfighter
     include HTTParty
 
     base_uri "https://api.stockfighter.io/ob/api"
+    format :json
 
     def initialize(options={})
       self.class.headers options['headers'] if options['headers']
@@ -33,7 +34,7 @@ module Stockfighter
     end
 
     def new_order(venue, stock, order_details)
-      self.class.post("/venues/#{venue}/stocks/#{stock}", :body => order_details).parsed_response
+      self.class.post("/venues/#{venue}/stocks/#{stock}/orders", :body => JSON.dump(order_details)).parsed_response
     end
 
     def order_status(venue, stock, order_id)

@@ -40,7 +40,7 @@ describe Stockfighter::Client do
       VCR.use_cassette("quote") do
         res = subject.quote('TESTEX', 'FOOBAR')
         expect(res['ok']).to eq(true)
-        expect(res.keys).to eq(["ok", "symbol", "venue", "bid", "bidSize", "askSize", "bidDepth", "askDepth", "last", "lastSize", "lastTrade", "quoteTime"])
+        expect(res.keys).to eq(["ok", "symbol", "venue", "bidSize", "askSize", "bidDepth", "askDepth"])
       end
     end
   end
@@ -64,20 +64,22 @@ describe Stockfighter::Client do
     end
 
     context 'with authorization header' do
-      subject { Stockfighter::Client.new({ 'headers' => { 'X-Starfighter-Authorization' => 'fakeKey' } })}
+      subject { Stockfighter::Client.new({ 'headers' => { 'X-Starfighter-Authorization' => ENV['STARFIGHTER_AUTH_KEY'] } })}
       it 'should create an order' do
         VCR.use_cassette("new_order_with_auth") do
+          account = "HB38644880"
+          venue = "ILEHEX"
+          stock = "PLI"
           order_details = {
-            "account" => "EXB123456",
-            "venue" => "TESTEX",
-            "stock" => "FOOBAR",
+            "account" => account,
+            "venue" => venue,
+            "stock" => stock,
             "qty" => 100,
             "direction" => "buy",
             "orderType" => "market"
           }
-          pending "We don't have an API key to test with yet"
-          res = subject.new_order('TESTEX', 'FOOBAR', order_details)
-          expect(res).to eq({ "ok" => true })
+          res = subject.new_order(venue, stock, order_details)
+          expect(res).to eq({"ok"=>true, "symbol"=>"PLI", "venue"=>"ILEHEX", "direction"=>"buy", "originalQty"=>100, "qty"=>0, "price"=>0, "orderType"=>"market", "id"=>854, "account"=>"HB38644880", "ts"=>"2015-12-13T07:56:31.731351217Z", "fills"=>[{"price"=>4562, "qty"=>100, "ts"=>"2015-12-13T07:56:31.731352633Z"}], "totalFilled"=>100, "open"=>false})
         end
       end
     end
@@ -85,13 +87,11 @@ describe Stockfighter::Client do
 
   describe '#order_status' do
     context 'with authorization header' do
-      subject { Stockfighter::Client.new({ 'headers' => { 'X-Starfighter-Authorization' => 'fakeKey' } })}
+      subject { Stockfighter::Client.new({ 'headers' => { 'X-Starfighter-Authorization' => ENV['STARFIGHTER_AUTH_KEY'] } })}
       it 'should return the order status' do
         VCR.use_cassette("order_status_with_auth") do
-          pending "We don't have an API key to test with yet"
           res = subject.order_status('TESTEX', 'FOOBAR', 12)
-          expect(res).to eq(true)
-          expect(res.keys).to eq([])
+          expect(res).to eq({"ok"=>false, "error"=>"order 12 not found (highest available on this venue is 0)"})
         end
       end
     end
@@ -99,13 +99,11 @@ describe Stockfighter::Client do
 
   describe '#orders_status' do
     context 'with authorization header' do
-      subject { Stockfighter::Client.new({ 'headers' => { 'X-Starfighter-Authorization' => 'fakeKey' } })}
+      subject { Stockfighter::Client.new({ 'headers' => { 'X-Starfighter-Authorization' => ENV['STARFIGHTER_AUTH_KEY'] } })}
       it 'should return the status of all the orders' do
         VCR.use_cassette("orders_status_with_auth") do
-          pending "We don't have an API key to test with yet"
           res = subject.orders_status('TESTEX', 'ACCOUNTID')
-          expect(res).to eq(true)
-          expect(res.keys).to eq([])
+          expect(res).to eq({"ok"=>false, "error"=>"Not authorized to access details about that account's orders."})
         end
       end
     end
@@ -113,13 +111,11 @@ describe Stockfighter::Client do
 
   describe '#orders_stock_status' do
     context 'with authorization header' do
-      subject { Stockfighter::Client.new({ 'headers' => { 'X-Starfighter-Authorization' => 'fakeKey' } })}
+      subject { Stockfighter::Client.new({ 'headers' => { 'X-Starfighter-Authorization' => ENV['STARFIGHTER_AUTH_KEY'] } })}
       it 'should return the status of all the orders' do
         VCR.use_cassette("orders_stock_status_with_auth") do
-          pending "We don't have an API key to test with yet"
           res = subject.orders_stock_status('TESTEX', 'ACCOUNTID', 'FOOBAR')
-          expect(res).to eq(true)
-          expect(res.keys).to eq([])
+          expect(res).to eq({"ok"=>false, "error"=>"You are not authorized to trade on that account."})
         end
       end
     end
@@ -127,13 +123,12 @@ describe Stockfighter::Client do
 
   describe '#cancel_order' do
     context 'with authorization header' do
-      subject { Stockfighter::Client.new({ 'headers' => { 'X-Starfighter-Authorization' => 'fakeKey' } })}
+      subject { Stockfighter::Client.new({ 'headers' => { 'X-Starfighter-Authorization' => ENV['STARFIGHTER_AUTH_KEY'] } })}
       it 'should cancel the order' do
         VCR.use_cassette("cancel_order_with_auth") do
-          pending "We don't have an API key to test with yet"
           res = subject.cancel_order('TESTEX', 'FOOBAR', 12)
-          expect(res).to eq(true)
-          expect(res.keys).to eq([])
+          expect(res['ok']).to eq(false)
+          expect(res.keys).to eq(["ok","error"])
         end
       end
     end
