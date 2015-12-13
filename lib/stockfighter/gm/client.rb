@@ -17,6 +17,10 @@ module Stockfighter
         self.class.post("/instances/#{instance_id}/restart").parsed_response
       end
 
+      def stop_level(instance_id)
+        self.class.post("/instances/#{instance_id}/stop").parsed_response
+      end
+
       def resume_level(instance_id)
         self.class.post("/instances/#{instance_id}/resume").parsed_response
       end
