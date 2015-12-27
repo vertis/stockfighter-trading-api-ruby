@@ -12,6 +12,11 @@ module Stockfighter
       def format(api_format)
         @api_format = api_format
       end
+
+      def headers(headers)
+        @headers ||= {}
+        @headers.merge!(headers)
+      end
     end
   end
 end
