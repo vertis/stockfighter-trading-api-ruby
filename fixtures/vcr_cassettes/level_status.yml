@@ -17,18 +17,28 @@ http_interactions:
       Server:
       - nginx/1.8.0
       Date:
-      - Sun, 13 Dec 2015 09:38:18 GMT
+      - Sun, 27 Dec 2015 00:19:50 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '68'
+      - '135'
       Connection:
       - keep-alive
       X-Upstream-Debugging:
-      - 172.31.134.156:8181
+      - instance-207
     body:
       encoding: UTF-8
-      string: '{"ok":false,"error":"Attempt to get status for the level timed out"}'
+      string: |-
+        {
+          "ok": true,
+          "done": false,
+          "id": 207,
+          "state": "open",
+          "details": {
+            "endOfTheWorldDay": 499,
+            "tradingDay": 12
+          }
+        }
     http_version:
-  recorded_at: Sun, 13 Dec 2015 09:38:15 GMT
+  recorded_at: Sun, 27 Dec 2015 00:19:32 GMT
 recorded_with: VCR 3.0.0

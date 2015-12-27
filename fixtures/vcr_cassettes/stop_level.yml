@@ -17,18 +17,22 @@ http_interactions:
       Server:
       - nginx/1.8.0
       Date:
-      - Sun, 13 Dec 2015 09:35:11 GMT
+      - Sun, 27 Dec 2015 00:19:53 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '49'
+      - '31'
       Connection:
       - keep-alive
       X-Upstream-Debugging:
-      - 172.31.134.156:8181
+      - instance-207
     body:
       encoding: UTF-8
-      string: '{"ok":false,"error":"Level instance not running"}'
+      string: |-
+        {
+          "ok": true,
+          "error": ""
+        }
     http_version:
-  recorded_at: Sun, 13 Dec 2015 09:35:07 GMT
+  recorded_at: Sun, 27 Dec 2015 00:19:35 GMT
 recorded_with: VCR 3.0.0

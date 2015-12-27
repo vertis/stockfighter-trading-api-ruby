@@ -54,65 +54,93 @@ module Stockfighter
     end
 
     def tickertape(account_id, venue_id, &callback)
-      EM.run do
-        ws = WebSocket::EventMachine::Client.connect(:uri => "wss://api.stockfighter.io/ob/api/ws/#{account_id}/venues/#{venue_id}/tickertape")
+      t = -> () {
+        wsoptions = { :uri => "wss://api.stockfighter.io/ob/api/ws/#{account_id}/venues/#{venue_id}/tickertape" }
+        ws = WebSocket::EventMachine::Client.connect(wsoptions)
 
         ws.onmessage do |msg, type|
           #puts "Received message: #{msg}"
           callback.call JSON.parse(msg)
         end
         ws.onclose do |code, reason|
-          #puts "Disconnected with status code: #{code}"
+          puts "Disconnected with status code: #{code}"
           #callback.call "{code} #{reason}"
-          EM.stop
+          #EM.stop
+          ws.class.connect(wsoptions)
         end
+      }
+      if EM.reactor_running?
+        t.call()
+      else
+        EM.run(&t)
       end
     end
 
     def tickertape_stock(account_id, venue_id, stock, &callback)
-      EM.run do
-        ws = WebSocket::EventMachine::Client.connect(:uri => "wss://api.stockfighter.io/ob/api/ws/#{account_id}/venues/#{venue_id}/tickertape/stocks/#{stock}")
+      t = -> () {
+        wsoptions = { :uri => "wss://api.stockfighter.io/ob/api/ws/#{account_id}/venues/#{venue_id}/tickertape/stocks/#{stock}" }
+        ws = WebSocket::EventMachine::Client.connect(wsoptions)
 
         ws.onmessage do |msg, type|
           #puts "Received message: #{msg}"
           callback.call JSON.parse(msg)
         end
         ws.onclose do |code, reason|
-          #puts "Disconnected with status code: #{code}"
-          EM.stop
+          puts "Disconnected with status code: #{code}"
+          #EM.stop
+          ws.class.connect(wsoptions)
         end
+      }
+      if EM.reactor_running?
+        t.call()
+      else
+        EM.run(&t)
       end
     end
 
     def executions(account_id, venue_id, &callback)
-      EM.run do
-        ws = WebSocket::EventMachine::Client.connect(:uri => "wss://api.stockfighter.io/ob/api/ws/#{account_id}/venues/#{venue_id}/executions")
+      t = -> () {
+        wsoptions = { :uri => "wss://api.stockfighter.io/ob/api/ws/#{account_id}/venues/#{venue_id}/executions" }
+        ws = WebSocket::EventMachine::Client.connect(wsoptions)
 
         ws.onmessage do |msg, type|
           #puts "Received message: #{msg}"
           callback.call JSON.parse(msg)
         end
         ws.onclose do |code, reason|
-          #puts "Disconnected with status code: #{code}"
-          EM.stop
+          puts "Disconnected with status code: #{code}"
+          #EM.stop
+          ws.class.connect(wsoptions)
         end
+      }
+      if EM.reactor_running?
+        t.call()
+      else
+        EM.run(&t)
       end
     end
 
     def executions_stock(account_id, venue_id, stock, &callback)
-      EM.run do
-        ws = WebSocket::EventMachine::Client.connect(:uri => "wss://api.stockfighter.io/ob/api/ws/#{account_id}/venues/#{venue_id}/executions/stocks/#{stock}")
+      t = -> () {
+        wsoptions = { :uri => "wss://api.stockfighter.io/ob/api/ws/#{account_id}/venues/#{venue_id}/executions/stocks/#{stock}" }
+        ws = WebSocket::EventMachine::Client.connect(wsoptions)
 
         ws.onmessage do |msg, type|
           #puts "Received message: #{msg}"
           callback.call JSON.parse(msg)
         end
         ws.onclose do |code, reason|
-          #puts "Disconnected with status code: #{code}"
-          EM.stop
+          puts "Disconnected with status code: #{code}"
+          #EM.stop
+          sleep 1
+          ws.class.connect(wsoptions)
         end
+      }
+      if EM.reactor_running?
+        t.call()
+      else
+        EM.run(&t)
       end
     end
-
   end
 end
