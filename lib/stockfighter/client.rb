@@ -4,18 +4,20 @@ require 'stockfighter/httpclient'
 
 module Stockfighter
   class Client
-    # base_uri "https://api.stockfighter.io/ob/api"
-    # format :json
-    #
-    # def initialize(options={})
-    #   self.class.headers options['headers'] if options['headers']
-    # end
+    include HTTPClient
+    
+    base_uri "https://api.stockfighter.io/ob/api"
+    format :json
+
+    def initialize(options={})
+      self.class.headers options['headers'] if options['headers']
+    end
     #
     # Typhoeus.get("www.example.com")
     #
-    # def heartbeat
-    #   self.class.get('/heartbeat').parsed_response
-    # end
+    def heartbeat
+      self.class.get('/heartbeat').parsed_response
+    end
     #
     # def venue_heartbeat(venue)
     #   self.class.get("/venues/#{venue}/heartbeat").parsed_response

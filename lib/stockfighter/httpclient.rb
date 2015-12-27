@@ -14,8 +14,16 @@ module Stockfighter
       end
 
       def headers(headers)
-        @headers ||= {}
-        @headers.merge!(headers)
+        default_options[:headers] ||= {}
+        default_options[:headers].merge!(headers)
+      end
+
+      def default_options
+        @default_options ||= {}
+      end
+
+      def get(uri, options={})
+        Typhoeus.get(@base_uri + uri, default_options.merge(options))
       end
     end
   end
