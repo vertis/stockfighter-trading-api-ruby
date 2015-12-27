@@ -43,7 +43,7 @@ module Stockfighter
     end
 
     def new_order(venue, stock, order_details)
-      @connection.post("venues/#{venue}/stocks/#{stock}/orders", :body => JSON.dump(order_details)).body
+      @connection.post("venues/#{venue}/stocks/#{stock}/orders", order_details).body
     end
 
     def order_status(venue, stock, order_id)
@@ -72,7 +72,7 @@ module Stockfighter
           callback.call JSON.parse(msg)
         end
         ws.onclose do |code, reason|
-          puts "Disconnected with status code: #{code}"
+          puts "Disconnected with status code: #{code}" if ENV['WEBSOCKET_DEBUG']
           #callback.call "{code} #{reason}"
           #EM.stop
           ws.class.connect(wsoptions)
@@ -95,7 +95,7 @@ module Stockfighter
           callback.call JSON.parse(msg)
         end
         ws.onclose do |code, reason|
-          puts "Disconnected with status code: #{code}"
+          puts "Disconnected with status code: #{code}" if ENV['WEBSOCKET_DEBUG']
           #EM.stop
           ws.class.connect(wsoptions)
         end
@@ -117,7 +117,7 @@ module Stockfighter
           callback.call JSON.parse(msg)
         end
         ws.onclose do |code, reason|
-          puts "Disconnected with status code: #{code}"
+          puts "Disconnected with status code: #{code}" if ENV['WEBSOCKET_DEBUG']
           #EM.stop
           ws.class.connect(wsoptions)
         end
@@ -139,7 +139,7 @@ module Stockfighter
           callback.call JSON.parse(msg)
         end
         ws.onclose do |code, reason|
-          puts "Disconnected with status code: #{code}"
+          puts "Disconnected with status code: #{code}" if ENV['WEBSOCKET_DEBUG']
           #EM.stop
           sleep 1
           ws.class.connect(wsoptions)

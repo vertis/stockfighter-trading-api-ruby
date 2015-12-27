@@ -7,8 +7,10 @@ http_interactions:
       encoding: US-ASCII
       string: ''
     headers:
+      User-Agent:
+      - Faraday v0.9.2
       X-Starfighter-Authorization:
-      - fakeKey
+      - FAKEKEY
   response:
     status:
       code: 200
@@ -17,11 +19,11 @@ http_interactions:
       Server:
       - nginx/1.8.0
       Date:
-      - Sun, 27 Dec 2015 00:19:50 GMT
+      - Sun, 27 Dec 2015 04:25:51 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '135'
+      - '65'
       Connection:
       - keep-alive
       X-Upstream-Debugging:
@@ -33,12 +35,8 @@ http_interactions:
           "ok": true,
           "done": false,
           "id": 207,
-          "state": "open",
-          "details": {
-            "endOfTheWorldDay": 499,
-            "tradingDay": 12
-          }
+          "state": "open"
         }
-    http_version:
-  recorded_at: Sun, 27 Dec 2015 00:19:32 GMT
+    http_version: 
+  recorded_at: Sun, 27 Dec 2015 04:25:32 GMT
 recorded_with: VCR 3.0.0

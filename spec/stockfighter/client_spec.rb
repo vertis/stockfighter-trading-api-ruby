@@ -40,7 +40,7 @@ describe Stockfighter::Client do
       VCR.use_cassette("quote") do
         res = subject.quote('TESTEX', 'FOOBAR')
         expect(res['ok']).to eq(true)
-        expect(res.keys).to eq(["ok", "symbol", "venue", "bidSize", "askSize", "bidDepth", "askDepth"])
+        expect(res.keys).to eq(["ok", "symbol", "venue", "bid", "ask", "bidSize", "askSize", "bidDepth", "askDepth", "last", "lastSize", "lastTrade", "quoteTime"])
       end
     end
   end
@@ -67,19 +67,29 @@ describe Stockfighter::Client do
       subject { Stockfighter::Client.new({ 'headers' => { 'X-Starfighter-Authorization' => ENV['STARFIGHTER_AUTH_KEY'] } })}
       it 'should create an order' do
         VCR.use_cassette("new_order_with_auth") do
-          account = "HB38644880"
-          venue = "ILEHEX"
-          stock = "PLI"
           order_details = {
-            "account" => account,
-            "venue" => venue,
-            "stock" => stock,
+            "account" => "EXB123456",
+            "venue" => "TESTEX",
+            "stock" => "FOOBAR",
             "qty" => 100,
             "direction" => "buy",
             "orderType" => "market"
           }
-          res = subject.new_order(venue, stock, order_details)
-          expect(res).to eq({"ok"=>true, "symbol"=>"PLI", "venue"=>"ILEHEX", "direction"=>"buy", "originalQty"=>100, "qty"=>0, "price"=>0, "orderType"=>"market", "id"=>854, "account"=>"HB38644880", "ts"=>"2015-12-13T07:56:31.731351217Z", "fills"=>[{"price"=>4562, "qty"=>100, "ts"=>"2015-12-13T07:56:31.731352633Z"}], "totalFilled"=>100, "open"=>false})
+          res = subject.new_order('TESTEX', 'FOOBAR', order_details)
+          expect(res).to eq({"ok"=>true,
+                            "symbol"=>"FOOBAR",
+                            "venue"=>"TESTEX",
+                            "direction"=>"buy",
+                            "originalQty"=>100,
+                            "qty"=>0,
+                            "price"=>0,
+                            "orderType"=>"market",
+                            "id"=>475,
+                            "account"=>"EXB123456",
+                            "ts"=>"2015-12-27T04:30:20.396513055Z",
+                            "fills"=>[{"price"=>9999, "qty"=>100, "ts"=>"2015-12-27T04:30:20.3965161Z"}],
+                            "totalFilled"=>100,
+                            "open"=>false})
         end
       end
     end
@@ -91,7 +101,7 @@ describe Stockfighter::Client do
       it 'should return the order status' do
         VCR.use_cassette("order_status_with_auth") do
           res = subject.order_status('TESTEX', 'FOOBAR', 12)
-          expect(res).to eq({"ok"=>false, "error"=>"order 12 not found (highest available on this venue is 0)"})
+          expect(res).to eq({"ok"=>false, "error"=>"order 12 not found (the venue purges orders after a while)"})
         end
       end
     end
