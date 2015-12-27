@@ -23,7 +23,11 @@ module Stockfighter
       end
 
       def get(uri, options={})
-        Typhoeus.get(@base_uri + uri, default_options.merge(options))
+        res = Typhoeus.get(@base_uri + uri, default_options.merge(options))
+        if @api_format == :json
+          return JSON.parse(res.body)
+        end
+        res.body
       end
     end
   end

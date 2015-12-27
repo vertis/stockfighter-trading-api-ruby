@@ -21,6 +21,8 @@ Gem::Specification.new do |spec|
 
   #spec.add_dependency "httparty", "~> 0.13.7"
   spec.add_dependency "typhoeus", "~> 0.8.0"
+  spec.add_dependency "faraday", "~> 0.9.2"
+  spec.add_dependency "faraday_middleware", "~> 0.10.0"
   spec.add_dependency "websocket-eventmachine-client", "~> 1.1.0"
 
   spec.add_development_dependency "bundler", "~> 1.9"

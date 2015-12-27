@@ -1,22 +1,34 @@
 require 'websocket-eventmachine-client'
 require 'json'
 require 'stockfighter/httpclient'
+require 'faraday'
+require 'faraday_middleware'
+require 'typhoeus/adapters/faraday'
 
 module Stockfighter
   class Client
-    include HTTPClient
-    
-    base_uri "https://api.stockfighter.io/ob/api"
-    format :json
+    # include HTTPClient
+    #
+    # base_uri "https://api.stockfighter.io/ob/api"
+    # format :json
 
     def initialize(options={})
       self.class.headers options['headers'] if options['headers']
+      @connection = Faraday.new 'https://api.stockfighter.io/ob/api' do |conn|
+        conn.request :json
+
+        conn.response :xml,  :content_type => /\bxml$/
+        conn.response :json, :content_type => /\bjson$/
+
+        conn.adapter :typhoeus
+      end
     end
     #
     # Typhoeus.get("www.example.com")
     #
     def heartbeat
-      self.class.get('/heartbeat').parsed_response
+      #self.class.get('/heartbeat')
+      @connection.get('heartbeat').body
     end
     #
     # def venue_heartbeat(venue)
